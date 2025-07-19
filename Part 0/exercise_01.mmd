@@ -1,1 +1,22 @@
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
+
+    User->>Browser: Types note in input field
+    User->>Browser: Clicks "Save" button
+
+    Note right of Browser: JS code prevents default form submission
+
+    Browser->>Server: POST /new_note with form data
+    activate Server
+    Server-->>Browser: 302 Redirect or OK response
+    deactivate Server
+
+    Note right of Browser: Page reloads to fetch updated notes
+
+    Browser->>Server: GET /notes (again)
+    activate Server
+    Server-->>Browser: Updated HTML page
+    deactivate Server
 
