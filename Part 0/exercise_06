@@ -1,1 +1,17 @@
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
 
+    User->>Browser: Types note and clicks "Save"
+
+    Note right of Browser: JS creates new note with content + timestamp
+
+    Browser->>Server: POST /new_note_spa with JSON data
+    activate Server
+    Server-->>Browser: 201 Created or success response
+    deactivate Server
+
+    Note right of Browser: JS updates local state (note list)
+
+    Browser->>Browser: Re-renders updated note list (without reload)
